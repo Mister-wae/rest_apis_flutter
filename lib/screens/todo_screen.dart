@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rest_apis_flutter/functions.dart';
 import 'package:rest_apis_flutter/models.dart';
 import 'package:rest_apis_flutter/provider.dart';
+import 'package:rest_apis_flutter/screens/create_todo_screen.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -60,11 +60,17 @@ class _TodoScreenState extends State<TodoScreen> {
                       const Spacer(),
                       IconButton(
                         onPressed: () {
-                          TodoFunctions.fetchTodos();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CreateTodoScreen(),
+                            ),
+                          );
                         },
                         icon: const Icon(
-                          Icons.dark_mode,
-                          size: 24,
+                          Icons.add_circle_outline,
+                          color: Colors.black,
+                          size: 30,
                         ),
                       ),
                     ],
@@ -78,7 +84,21 @@ class _TodoScreenState extends State<TodoScreen> {
                 child: ListView.separated(
                   itemBuilder: (context, index) {
                     Todo todo = provider.todos[index];
+                    // tile to display todo
                     return ListTile(
+                      // displaying id
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: 16,
+                        child: Text(
+                          todo.id,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      // displaying title
                       title: Text(
                         todo.title,
                         style: const TextStyle(
@@ -87,8 +107,9 @@ class _TodoScreenState extends State<TodoScreen> {
                           fontWeight: FontWeight.normal,
                         ),
                       ),
+                      // displaying weekday
                       subtitle: Text(
-                        todo.createdAt.toString(),
+                        weekdays[todo.createdAt - 1],
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 14,

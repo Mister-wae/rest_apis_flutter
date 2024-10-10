@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_apis_flutter/provider.dart';
-import 'package:rest_apis_flutter/todo_screen.dart';
+import 'package:rest_apis_flutter/screens/todo_screen.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
+  runApp(
+    ChangeNotifierProvider(
       create: (BuildContext context) => TodoProvider(),
-      child: const MainApp()));
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

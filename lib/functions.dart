@@ -20,7 +20,7 @@ class TodoFunctions {
       );
 
       if (apiResponse.statusCode == 200) {
-        // decode the response from string to JSON
+        // decode the response from string to Dart readable object
         final List todoList = jsonDecode(apiResponse.body);
 
         // for-loop
@@ -36,5 +36,38 @@ class TodoFunctions {
       log(e.toString()); // catch error
     }
     return todos;
+  }
+
+  // create new Todo
+  static Future<bool> createNewTodo(String title) async {
+    // endpoint
+    String url = "https://6703fec0ab8a8f8927328e61.mockapi.io/api/v1/todo";
+
+    // headers
+    Map<String, String> headers = {"Content-Type": "application/json"};
+
+    // body
+    Map<String, dynamic> requestBody = {
+      "title": title,
+      "completed": false,
+      "created_at": DateTime.now().weekday,
+    };
+
+    try {
+      // send the post request
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 }

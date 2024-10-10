@@ -27,4 +27,26 @@ class TodoProvider extends ChangeNotifier {
 
     setFetchState(false); // hide the circleprogressindicator
   }
+
+  // variable to represent loading state
+  bool isTodoCreating = false;
+
+  // function to update loading state
+  void setCreateState(bool isCreating) {
+    isTodoCreating = isCreating;
+    notifyListeners();
+  }
+
+  Future<bool> createTodo(String title) async {
+    // show circle progress indicator
+    setCreateState(true);
+
+    // call the create todo function
+    bool isCreated = await TodoFunctions.createNewTodo(title);
+
+    // hide circle progress indicator
+    setCreateState(false);
+
+    return isCreated;
+  }
 }
