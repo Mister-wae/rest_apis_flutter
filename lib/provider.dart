@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rest_apis_flutter/functions.dart';
+import 'package:rest_apis_flutter/all_functions/functions.dart';
 import 'package:rest_apis_flutter/models.dart';
 
 class TodoProvider extends ChangeNotifier {
@@ -37,12 +37,12 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> createTodo(String title) async {
+  Future<bool> createTodo(String title, String description) async {
     // show circle progress indicator
     setCreateState(true);
 
     // call the create todo function
-    bool isCreated = await TodoFunctions.createNewTodo(title);
+    bool isCreated = await TodoFunctions.createNewTodo(title, description);
 
     // hide circle progress indicator
     setCreateState(false);

@@ -1,14 +1,14 @@
 class Todo {
   String title;
   bool completed;
-  int createdAt;
+  String description;
   String id;
 
   // constructor
   Todo({
     required this.title,
     required this.completed,
-    required this.createdAt,
+    required this.description,
     required this.id,
   });
 
@@ -16,7 +16,7 @@ class Todo {
   factory Todo.fromJson(Map<String, dynamic> json) => Todo(
         title: json["title"],
         completed: json["completed"],
-        createdAt: json["created_at"],
+        description: json["description"],
         id: json["id"],
       );
 }

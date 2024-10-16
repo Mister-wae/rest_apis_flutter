@@ -109,7 +109,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                       // displaying weekday
                       subtitle: Text(
-                        weekdays[todo.createdAt - 1],
+                        todo.description,
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 14,

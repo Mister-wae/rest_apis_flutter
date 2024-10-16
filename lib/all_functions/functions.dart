@@ -39,7 +39,7 @@ class TodoFunctions {
   }
 
   // create new Todo
-  static Future<bool> createNewTodo(String title) async {
+  static Future<bool> createNewTodo(String title, String description) async {
     // endpoint
     String url = "https://6703fec0ab8a8f8927328e61.mockapi.io/api/v1/todo";
 
@@ -50,7 +50,7 @@ class TodoFunctions {
     Map<String, dynamic> requestBody = {
       "title": title,
       "completed": false,
-      "created_at": DateTime.now().weekday,
+      "description": description,
     };
 
     try {
