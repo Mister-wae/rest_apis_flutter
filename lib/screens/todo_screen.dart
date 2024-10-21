@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rest_apis_flutter/models.dart';
+import 'package:rest_apis_flutter/all_models/models.dart';
 import 'package:rest_apis_flutter/provider.dart';
 import 'package:rest_apis_flutter/screens/create_todo_screen.dart';
 
@@ -19,6 +19,8 @@ class _TodoScreenState extends State<TodoScreen> {
     //
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       Provider.of<TodoProvider>(context, listen: false).fetchTodos();
+      // get the dark theme
+      Provider.of<TodoProvider>(context, listen: false).getDarkTheme();
     });
   }
 
@@ -31,6 +33,8 @@ class _TodoScreenState extends State<TodoScreen> {
           alignment: Alignment.center,
           children: [
             Scaffold(
+              backgroundColor:
+                  provider.isDarkTheme ? Colors.grey : Colors.white,
               // app Bar
               appBar: PreferredSize(
                 preferredSize: Size(
@@ -57,7 +61,23 @@ class _TodoScreenState extends State<TodoScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      // spacer
                       const Spacer(),
+                      // dark mode button
+                      IconButton(
+                        onPressed: () {
+                          // function
+                          Provider.of<TodoProvider>(context, listen: false)
+                              .setDarkTheme(!provider.isDarkTheme);
+                        },
+                        icon: Icon(
+                          provider.isDarkTheme
+                              ? Icons.light_mode
+                              : Icons.dark_mode,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // create todo button
                       IconButton(
                         onPressed: () {
                           Navigator.push(

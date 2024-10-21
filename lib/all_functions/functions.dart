@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:rest_apis_flutter/models.dart';
+import 'package:rest_apis_flutter/all_models/models.dart';
 import 'package:http/http.dart' as http;
 
 class TodoFunctions {

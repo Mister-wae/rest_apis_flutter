@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rest_apis_flutter/all_functions/functions.dart';
-import 'package:rest_apis_flutter/models.dart';
+import 'package:rest_apis_flutter/all_models/models.dart';
+import 'package:rest_apis_flutter/shared_pref_service.dart';
 
 class TodoProvider extends ChangeNotifier {
   // variable to represent loading state
@@ -48,5 +49,34 @@ class TodoProvider extends ChangeNotifier {
     setCreateState(false);
 
     return isCreated;
+  }
+
+  // Manage theme State
+  bool isDarkTheme = false; // set as light mode initially
+
+  // function to set Dark Theme
+  void setDarkTheme(bool newValue) async {
+    // set the value on shared preferences
+    bool isValueSet = await AppService.storeThemeValue(newValue: newValue);
+
+    // check if the function was successful
+    if (isValueSet) {
+      // set the new value
+      isDarkTheme = newValue;
+    }
+
+    notifyListeners();
+  }
+
+  // get dark theme value
+  void getDarkTheme() async {
+    var newValue = await AppService.getThemeValue(); // information stored
+
+    if (newValue == true) {
+      isDarkTheme = true;
+    } else {
+      isDarkTheme = false;
+    }
+    notifyListeners();
   }
 }
